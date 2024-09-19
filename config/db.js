@@ -1,8 +1,7 @@
-// db.js
 const mysql = require('mysql2');
 
 // Crear la conexión a la base de datos
-const connection = mysql.createPool({
+const pool = mysql.createPool({
   host: 'localhost',
   user: 'root',     // Usuario predeterminado de XAMPP
   password: '',     // Deja vacío si no configuraste una contraseña
@@ -13,12 +12,13 @@ const connection = mysql.createPool({
 });
 
 // Conectar a la base de datos
-connection.connect((err) => {
+pool.getConnection((err, connection) => {
   if (err) {
     console.error('Error conectando a la base de datos:', err);
     return;
   }
   console.log('Conexión exitosa a la base de datos MySQL.');
+  connection.release(); // Libera la conexión de vuelta al pool
 });
 
-module.exports = connection;
+module.exports = pool; // Exportar el pool
