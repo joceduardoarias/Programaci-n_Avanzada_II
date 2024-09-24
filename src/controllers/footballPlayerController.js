@@ -12,7 +12,8 @@ const FootballPlayerController = {
   getAll: (req, res) => {
     FootballPlayerService.getAllPlayers((err, players) => {
       if (err) return res.status(500).send(err.message);
-      res.json(players);
+      console.log(players);
+      res.render('players', { players });
     });
   },
 
