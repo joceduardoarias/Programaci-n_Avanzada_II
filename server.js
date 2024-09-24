@@ -1,7 +1,7 @@
 // server.js
 const express = require('express');
 const bodyParser = require('body-parser');
-const footballPlayerRoutes = require('./routes/footballPlayerRoutes');
+const footballPlayerRoutes = require('./src/routes/footballPlayerRoutes');
 
 const app = express();
 const port = 3000;
