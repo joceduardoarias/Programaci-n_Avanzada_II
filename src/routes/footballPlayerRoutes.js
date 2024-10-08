@@ -1,7 +1,7 @@
 // routes/footballPlayerRoutes.js
 const express = require('express');
 const FootballPlayerController = require('../controllers/footballPlayerController');
-const FootballPlayerApiController = require('../controllers/FootballPlayerApiController');
+const FootballPlayerApiController = require('../controllers/footballPlayerApiController');
 
 const router = express.Router();
 
