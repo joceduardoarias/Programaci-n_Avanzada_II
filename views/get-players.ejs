@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Football Players</title>
+  <!-- Incluir Bootstrap desde el CDN -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Bootstrap JS and dependencies (jQuery and Popper.js) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">Football Players</h1>
+
+    <div class="row">
+      <% players.forEach(function(player) { %>
+        <div class="col-md-4 mb-4">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title"><%= player.nombre %></h5>
+              <p class="card-text">Edad: <%= player.edad %></p>
+              <p class="card-text">Equipo: <%= player.equipo %></p>
+
+              <!-- Botón para modificar -->
+              <a href="/footballplayers/edit/<%= player.id %>" class="btn btn-primary">Modificar</a>
+
+              <!-- Botón para eliminar -->
+              <form action="/footballplayers/delete/<%= player.id %>" method="POST" class="d-inline">
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+
+</body>
+</html>
