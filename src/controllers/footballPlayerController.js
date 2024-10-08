@@ -2,7 +2,6 @@
 const FootballPlayerService = require("../services/footballPlayerService");
 
 const FootballPlayerController = {
-  
   create: (req, res) => {
     FootballPlayerService.createPlayer(req.body, (err, result) => {
       if (err) return res.status(400).send(err.message);
@@ -12,7 +11,7 @@ const FootballPlayerController = {
 
   getAll: (req, res) => {
     FootballPlayerService.getAllPlayers((err, players) => {
-      if (err) return res.status(500).send(err.message);      
+      if (err) return res.status(500).send(err.message);
       res.render("get-players", { players });
     });
   },
@@ -27,19 +26,25 @@ const FootballPlayerController = {
     });
   },
 
-  update: (req, res) => {    
+  update: (req, res) => {
     const id = req.params.id;
-    FootballPlayerService.updatePlayer(id, req.body, (err, result) => {      
+    FootballPlayerService.updatePlayer(id, req.body, (err, result) => {
       if (err) return res.status(400).send(err.message);
-      res.send('Football Player actualizado exitosamente.');
+      res.send("Football Player actualizado exitosamente.");
     });
   },
 
   delete: (req, res) => {
     const id = req.params.id;
+    // Llamar a delete y luego obtener la lista actualizada de jugadores
     FootballPlayerService.deletePlayer(id, (err, result) => {
       if (err) return res.status(500).send(err.message);
-      res.send("Football Player eliminado exitosamente.");
+
+      // Obtener la lista actualizada de jugadores
+      FootballPlayerService.getAllPlayers((err, players) => {
+        if (err) return res.status(500).send(err.message);
+        res.render("get-players", { players });
+      });
     });
   },
 
