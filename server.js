@@ -1,20 +1,22 @@
-// server.js
 const express = require('express');
-const bodyParser = require('body-parser'); 
+const bodyParser = require('body-parser');
 const path = require('path');
 const footballPlayerRoutes = require('./src/routes/footballPlayerRoutes');
 
 const app = express();
 const port = 3000;
 
+// Body-parser para analizar formularios (necesario para acceder al campo _method)
+app.use(bodyParser.urlencoded({ extended: true }));
+// Middleware para el manejo de datos en formato JSON
 app.use(bodyParser.json());
-app.use(express.static('public'));
 
-// Usar EJS como motor de plantillas
+// Middleware estático y configuración de vistas
+app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Usar las rutas definidas
+// Definir rutas
 app.use('/', footballPlayerRoutes);
 
 app.listen(port, () => {
