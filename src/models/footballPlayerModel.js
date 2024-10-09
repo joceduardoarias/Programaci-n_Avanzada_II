@@ -1,49 +1,78 @@
 // models/footballPlayerModel.js
-const db = require('../config/db');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/db');
 
-// Definir el modelo de FootballPlayer
-const FootballPlayer = {
-  create: (data, callback) => {
-    const { nombre, edad, equipo } = data;
-    const sql = 'INSERT INTO footballplayers (nombre, edad, equipo) VALUES (?, ?, ?)';
-    db.query(sql, [nombre, edad, equipo], (err, result) => {
-      if (err) return callback(err);
-      callback(null, result);
-    });
+const FootballPlayer = sequelize.define('FootballPlayer', {
+  nombre: {
+    type: DataTypes.STRING,
+    allowNull: false
   },
-
-  findAll: (callback) => {
-    const sql = 'SELECT * FROM footballplayers';
-    db.query(sql, (err, results) => {
-      if (err) return callback(err);
-      callback(null, results);
-    });
+  edad: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   },
+  equipo: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+}, {
+  tableName: 'footballplayers',
+  timestamps: false
+});
 
-  findById: (id, callback) => {
-    const sql = 'SELECT * FROM footballplayers WHERE id = ?';
-    db.query(sql, [id], (err, result) => {
-      if (err) return callback(err);
-      callback(null, result[0]);
-    });
-  },
-
-  update: (id, data, callback) => {
-    const { nombre, edad, equipo } = data;
-    const sql = 'UPDATE footballplayers SET nombre = ?, edad = ?, equipo = ? WHERE id = ?';
-    db.query(sql, [nombre, edad, equipo, id], (err, result) => {
-      if (err) return callback(err);
-      callback(null, result);
-    });
-  },
-
-  delete: (id, callback) => {
-    const sql = 'DELETE FROM footballplayers WHERE id = ?';
-    db.query(sql, [id], (err, result) => {
-      if (err) return callback(err);
-      callback(null, result);
-    });
+const create = async (data) => {
+  try {
+    const player = await FootballPlayer.create(data);
+    return player;
+  } catch (err) {
+    throw err;
   }
 };
 
-module.exports = FootballPlayer;
+const findAll = async () => {
+  try {
+    const players = await FootballPlayer.findAll();
+    return players;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const findById = async (id) => {
+  try {
+    const player = await FootballPlayer.findByPk(id);
+    return player;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const update = async (id, data) => {
+  try {
+    const [updated] = await FootballPlayer.update(data, {
+      where: { id: id }
+    });
+    return updated;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const remove = async (id) => {
+  try {
+    const deleted = await FootballPlayer.destroy({
+      where: { id: id }
+    });
+    return deleted;
+  } catch (err) {
+    throw err;
+  }
+};
+
+module.exports = {
+  create,
+  findAll,
+  findById,
+  update,
+  remove
+};
