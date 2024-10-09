@@ -2,33 +2,58 @@
 const FootballPlayerModel = require('../models/footballPlayerModel');
 
 const FootballPlayerService = {
-  createPlayer: (data, callback) => {
+  createPlayer: async (data) => {
     // Validar datos antes de enviarlos al modelo
     if (!data.nombre || !data.edad || !data.equipo) {
-      return callback(new Error('Todos los campos son requeridos'));
+      throw new Error('Todos los campos son requeridos');
     }
 
-    FootballPlayerModel.create(data, callback);
+    try {
+      const player = await FootballPlayerModel.create(data);
+      return player;
+    } catch (err) {
+      throw err;
+    }
   },
 
-  getAllPlayers: (callback) => {
-    FootballPlayerModel.findAll(callback);
+  getAllPlayers: async () => {
+    try {
+      const players = await FootballPlayerModel.findAll();
+      return players;
+    } catch (err) {
+      throw err;
+    }
   },
 
-  getPlayerById: (id, callback) => {
-    FootballPlayerModel.findById(id, callback);
+  getPlayerById: async (id) => {
+    try {
+      const player = await FootballPlayerModel.findById(id);
+      return player;
+    } catch (err) {
+      throw err;
+    }
   },
 
-  updatePlayer: (id, data, callback) => {
+  updatePlayer: async (id, data) => {
     if (!data.nombre || !data.edad || !data.equipo) {
-      return callback(new Error('Todos los campos son requeridos'));
+      throw new Error('Todos los campos son requeridos');
     }
 
-    FootballPlayerModel.update(id, data, callback);
+    try {
+      const updated = await FootballPlayerModel.update(id, data);
+      return updated;
+    } catch (err) {
+      throw err;
+    }
   },
 
-  deletePlayer: (id, callback) => {
-    FootballPlayerModel.delete(id, callback);
+  deletePlayer: async (id) => {
+    try {
+      const deleted = await FootballPlayerModel.remove(id);
+      return deleted;
+    } catch (err) {
+      throw err;
+    }
   }
 };
 
