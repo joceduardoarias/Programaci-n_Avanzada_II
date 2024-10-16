@@ -35,11 +35,13 @@ const FootballPlayerController = {
     const id = req.params.id;
     try {
       await FootballPlayerService.updatePlayer(id, req.body);
-      res.send("Football Player actualizado exitosamente.");
+      const players = await FootballPlayerService.getAllPlayers();
+      res.render("get-players", { players });
     } catch (err) {
       res.status(400).send(err.message);
     }
   },
+  
 
   delete: async (req, res) => {
     const id = req.params.id;
