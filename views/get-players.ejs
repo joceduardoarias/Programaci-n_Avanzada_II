@@ -29,7 +29,7 @@
               <a href="/footballplayers/edit/<%= player.id %>" class="btn btn-primary">Modificar</a>
 
               <!-- Botón para eliminar -->
-              <form action="/footballplayers/delete/<%= player.id %>" method="POST" class="d-inline">
+              <form action="/footballplayers/delete/<%= player.id %>?_method=DELETE" method="POST" class="d-inline">
                 <button type="submit" class="btn btn-danger">Eliminar</button>
               </form>
             </div>
