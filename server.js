@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override')
 const path = require('path');
 const footballPlayerRoutes = require('./src/routes/footballPlayerRoutes');
 
@@ -10,7 +11,8 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 // Middleware para el manejo de datos en formato JSON
 app.use(bodyParser.json());
-
+// Configuración de method-override
+app.use(methodOverride('_method'));
 // Middleware estático y configuración de vistas
 app.use(express.static('public'));
 app.set('view engine', 'ejs');

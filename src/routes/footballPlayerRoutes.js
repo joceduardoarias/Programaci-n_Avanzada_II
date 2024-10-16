@@ -10,7 +10,7 @@ router.get('/', FootballPlayerController.getAll);
 router.post('/footballplayers', FootballPlayerController.create);
 router.get('/footballplayers', FootballPlayerController.getAll);
 router.get('/footballplayers/:id', FootballPlayerController.getById);
-router.post('/footballplayers/update/:id', FootballPlayerController.update);
+router.put('/footballplayers/update/:id', FootballPlayerController.update);
 router.post('/footballplayers/delete/:id', FootballPlayerController.delete);
 router.get('/footballplayers/edit/:id', FootballPlayerController.getEditPlayer);
 

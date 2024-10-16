@@ -9,7 +9,7 @@
 <body>
   <div class="container mt-5">
     <h1 class="text-center mb-4">Modificar Jugador</h1>
-    <form action="/footballplayers/update/<%= player.id %>" method="POST" class="needs-validation" novalidate>        
+    <form action="/footballplayers/update/<%= player.id %>?_method=PUT" method="POST" class="needs-validation" novalidate>        
       <div class="row mb-3">
         <div class="col-md-6">
           <label for="nombre" class="form-label">Nombre</label>
