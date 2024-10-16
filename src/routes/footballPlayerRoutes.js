@@ -11,7 +11,7 @@ router.post('/footballplayers', FootballPlayerController.create);
 router.get('/footballplayers', FootballPlayerController.getAll);
 router.get('/footballplayers/:id', FootballPlayerController.getById);
 router.put('/footballplayers/update/:id', FootballPlayerController.update);
-router.post('/footballplayers/delete/:id', FootballPlayerController.delete);
+router.delete('/footballplayers/delete/:id', FootballPlayerController.delete);
 router.get('/footballplayers/edit/:id', FootballPlayerController.getEditPlayer);
 
 // Definir las rutas para CRUD de FootballPlayers API
