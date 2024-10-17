@@ -7,8 +7,9 @@ const router = express.Router();
 
 // Definir las rutas para CRUD de FootballPlayers View
 router.get('/', FootballPlayerController.getAll);
-router.post('/footballplayers', FootballPlayerController.create);
 router.get('/footballplayers', FootballPlayerController.getAll);
+router.get('/footballplayers/add', FootballPlayerController.getAddPlayer);
+router.post('/footballplayers/add', FootballPlayerController.addPlayer);
 router.get('/footballplayers/:id', FootballPlayerController.getById);
 router.put('/footballplayers/update/:id', FootballPlayerController.update);
 router.delete('/footballplayers/delete/:id', FootballPlayerController.delete);

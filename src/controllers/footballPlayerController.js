@@ -64,6 +64,19 @@ const FootballPlayerController = {
       res.status(500).send("Error al obtener los datos del jugador");
     }
   },
+
+  getAddPlayer: (req, res) => {
+    res.render("add-player");
+  },
+
+  addPlayer: async (req, res) => {
+    try {
+      await FootballPlayerService.createPlayer(req.body);
+      res.redirect("/footballplayers");
+    } catch (err) {
+      res.status(400).send(err.message);
+    }
+  },
 };
 
 module.exports = FootballPlayerController;
