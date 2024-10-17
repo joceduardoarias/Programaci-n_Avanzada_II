@@ -7,7 +7,9 @@ const authController = require('../controllers/authController');
 const router = express.Router();
 
 // Rutas de autenticación
+router.get('/register', (req, res) => res.render('register'));
 router.post('/register', authController.register);
+router.get('/login', (req, res) => res.render('login'));
 router.post('/login', authController.login);
 
 // Definir las rutas para CRUD de FootballPlayers View
