@@ -1,3 +1,4 @@
+<!-- get-players.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +16,11 @@
 
   <div class="container mt-5">
     <h1 class="text-center mb-4">Football Players</h1>
+
+    <!-- Botón para agregar un nuevo jugador -->
+    <div class="text-center mb-4">
+      <a href="/footballplayers/add" class="btn btn-success">Agregar Nuevo Jugador</a>
+    </div>
 
     <div class="row">
       <% players.forEach(function(player) { %>
