@@ -31,6 +31,11 @@ const authController = {
     }
   },
 
+  logout: (req, res) => {
+    res.clearCookie('token');
+    res.redirect('/login');
+  },
+
   verifyToken: (req, res, next) => {
     const token = req.cookies.token;
     if (!token) return res.redirect('/login');
