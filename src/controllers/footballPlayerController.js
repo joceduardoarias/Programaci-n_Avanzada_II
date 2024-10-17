@@ -35,7 +35,8 @@ const FootballPlayerController = {
     const id = req.params.id;
     try {
       await FootballPlayerService.updatePlayer(id, req.body);
-      res.send("Football Player actualizado exitosamente.");
+      const players = await FootballPlayerService.getAllPlayers();
+      res.render("get-players", { players });
     } catch (err) {
       res.status(400).send(err.message);
     }
@@ -60,6 +61,19 @@ const FootballPlayerController = {
       res.render("edit-player", { player });
     } catch (err) {
       res.status(500).send("Error al obtener los datos del jugador");
+    }
+  },
+
+  getAddPlayer: (req, res) => {
+    res.render("add-player");
+  },
+
+  addPlayer: async (req, res) => {
+    try {
+      await FootballPlayerService.createPlayer(req.body);
+      res.redirect("/footballplayers");
+    } catch (err) {
+      res.status(400).send(err.message);
     }
   },
 };
