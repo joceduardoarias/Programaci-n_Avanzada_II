@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 const footballPlayerRoutes = require('./src/routes/footballPlayerRoutes');
 
 const app = express();
@@ -13,6 +14,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // Configuración de method-override
 app.use(methodOverride('_method'));
+// Middleware para el manejo de cookies
+app.use(cookieParser());
 // Middleware estático y configuración de vistas
 app.use(express.static('public'));
 app.set('view engine', 'ejs');

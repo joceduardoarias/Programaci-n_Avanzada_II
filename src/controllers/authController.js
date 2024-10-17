@@ -8,9 +8,9 @@ const authController = {
     const { username, password } = req.body;
     try {
       const user = await User.create({ username, password });
-      res.status(201).send('Usuario registrado exitosamente.');
+      res.redirect('/login');
     } catch (err) {
-      res.status(400).send(err.message);
+      res.render('register', { error: err.message });
     }
   },
 
@@ -18,28 +18,29 @@ const authController = {
     const { username, password } = req.body;
     try {
       const user = await User.findOne({ where: { username } });
-      if (!user) return res.status(404).send('Usuario no encontrado.');
+      if (!user) return res.render('login', { error: 'Usuario no encontrado.' });
 
       const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) return res.status(400).send('Contraseña incorrecta.');
+      if (!isMatch) return res.render('login', { error: 'Contraseña incorrecta.' });
 
       const token = jwt.sign({ id: user.id }, 'secretKey', { expiresIn: '1h' });
-      res.json({ token });
+      res.cookie('token', token, { httpOnly: true });
+      res.redirect('/footballplayers');
     } catch (err) {
-      res.status(500).send(err.message);
+      res.render('login', { error: err.message });
     }
   },
 
   verifyToken: (req, res, next) => {
-    const token = req.header('Authorization').replace('Bearer ', '');
-    if (!token) return res.status(401).send('Acceso denegado.');
+    const token = req.cookies.token;
+    if (!token) return res.redirect('/login');
 
     try {
       const verified = jwt.verify(token, 'secretKey');
       req.user = verified;
       next();
     } catch (err) {
-      res.status(400).send('Token inválido.');
+      res.redirect('/login');
     }
   }
 };
