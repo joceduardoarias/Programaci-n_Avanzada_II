@@ -2,44 +2,53 @@
 const FootballPlayerService = require('../services/footballPlayerService');
 
 const FootballPlayerApiController = {
-  create: (req, res) => {
-    FootballPlayerService.createPlayer(req.body, (err, result) => {
-      if (err) return res.status(400).send(err.message);
+  create: async (req, res) => {
+    try {
+      await FootballPlayerService.createPlayer(req.body);
       res.status(201).send('Football Player creado exitosamente.');
-    });
+    } catch (err) {
+      res.status(400).send(err.message);
+    }
   },
 
-  getAll: (req, res) => {
-    FootballPlayerService.getAllPlayers((err, players) => {
-      if (err) return res.status(500).send(err.message);
-      console.log(players);
+  getAll: async (req, res) => {
+    try {
+      const players = await FootballPlayerService.getAllPlayers();
       res.json(players);
-    });
+    } catch (err) {
+      res.status(500).send(err.message);
+    }
   },
 
-  getById: (req, res) => {
+  getById: async (req, res) => {
     const id = req.params.id;
-    FootballPlayerService.getPlayerById(id, (err, player) => {
-      if (err) return res.status(500).send(err.message);
+    try {
+      const player = await FootballPlayerService.getPlayerById(id);
       if (!player) return res.status(404).send('Football Player no encontrado.');
       res.json(player);
-    });
+    } catch (err) {
+      res.status(500).send(err.message);
+    }
   },
 
-  update: (req, res) => {
+  update: async (req, res) => {
     const id = req.params.id;
-    FootballPlayerService.updatePlayer(id, req.body, (err, result) => {
-      if (err) return res.status(400).send(err.message);
+    try {
+      await FootballPlayerService.updatePlayer(id, req.body);
       res.send('Football Player actualizado exitosamente.');
-    });
+    } catch (err) {
+      res.status(400).send(err.message);
+    }
   },
 
-  delete: (req, res) => {
+  delete: async (req, res) => {
     const id = req.params.id;
-    FootballPlayerService.deletePlayer(id, (err, result) => {
-      if (err) return res.status(500).send(err.message);
+    try {
+      await FootballPlayerService.deletePlayer(id);
       res.send('Football Player eliminado exitosamente.');
-    });
+    } catch (err) {
+      res.status(500).send(err.message);
+    }
   }
 };
 
