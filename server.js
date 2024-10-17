@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const methodOverride = require('method-override')
+const methodOverride = require('method-override');
 const path = require('path');
 const footballPlayerRoutes = require('./src/routes/footballPlayerRoutes');
 
