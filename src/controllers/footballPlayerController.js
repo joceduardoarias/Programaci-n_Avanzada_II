@@ -41,6 +41,7 @@ const FootballPlayerController = {
       res.status(400).send(err.message);
     }
   },
+  
 
   delete: async (req, res) => {
     const id = req.params.id;
