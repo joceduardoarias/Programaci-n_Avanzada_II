@@ -7,7 +7,8 @@ const authController = {
   register: async (req, res) => {
     const { username, password } = req.body;
     try {
-      const user = await User.create({ username, password });
+      const user = new User({ username, password });
+      await user.save();
       res.redirect('/login');
     } catch (err) {
       res.render('register', { error: err.message });
@@ -17,13 +18,13 @@ const authController = {
   login: async (req, res) => {
     const { username, password } = req.body;
     try {
-      const user = await User.findOne({ where: { username } });
+      const user = await User.findOne({ username });
       if (!user) return res.render('login', { error: 'Usuario no encontrado.' });
 
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) return res.render('login', { error: 'Contraseña incorrecta.' });
 
-      const token = jwt.sign({ id: user.id }, 'secretKey', { expiresIn: '1h' });
+      const token = jwt.sign({ id: user._id }, 'secretKey', { expiresIn: '1h' });
       res.cookie('token', token, { httpOnly: true });
       res.redirect('/footballplayers');
     } catch (err) {
