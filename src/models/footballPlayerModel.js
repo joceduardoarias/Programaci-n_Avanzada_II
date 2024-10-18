@@ -1,28 +1,30 @@
 // models/footballPlayerModel.js
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/db');
+const mongoose = require('mongoose');
 
-const FootballPlayer = sequelize.define('FootballPlayer', {
+const footballPlayerSchema = new mongoose.Schema({
   nombre: {
-    type: DataTypes.STRING,
-    allowNull: false
+    type: String,
+    required: true
   },
   edad: {
-    type: DataTypes.INTEGER,
-    allowNull: false
+    type: Number,
+    required: true
   },
   equipo: {
-    type: DataTypes.STRING,
-    allowNull: false
+    type: String,
+    required: true
   }
 }, {
-  tableName: 'footballplayers',
+  collection: 'footballplayers',
   timestamps: false
 });
 
+const FootballPlayer = mongoose.model('FootballPlayer', footballPlayerSchema);
+
 const create = async (data) => {
   try {
-    const player = await FootballPlayer.create(data);
+    const player = new FootballPlayer(data);
+    await player.save();
     return player;
   } catch (err) {
     throw err;
@@ -31,7 +33,7 @@ const create = async (data) => {
 
 const findAll = async () => {
   try {
-    const players = await FootballPlayer.findAll();
+    const players = await FootballPlayer.find();
     return players;
   } catch (err) {
     throw err;
@@ -40,7 +42,7 @@ const findAll = async () => {
 
 const findById = async (id) => {
   try {
-    const player = await FootballPlayer.findByPk(id);
+    const player = await FootballPlayer.findById(id);
     return player;
   } catch (err) {
     throw err;
@@ -49,10 +51,8 @@ const findById = async (id) => {
 
 const update = async (id, data) => {
   try {
-    const [updated] = await FootballPlayer.update(data, {
-      where: { id: id }
-    });
-    return updated;
+    const player = await FootballPlayer.findByIdAndUpdate(id, data, { new: true });
+    return player;
   } catch (err) {
     throw err;
   }
@@ -60,10 +60,8 @@ const update = async (id, data) => {
 
 const remove = async (id) => {
   try {
-    const deleted = await FootballPlayer.destroy({
-      where: { id: id }
-    });
-    return deleted;
+    const player = await FootballPlayer.findByIdAndDelete(id);
+    return player;
   } catch (err) {
     throw err;
   }
