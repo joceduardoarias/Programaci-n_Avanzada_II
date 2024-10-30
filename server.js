@@ -5,6 +5,9 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const footballPlayerRoutes = require('./src/routes/footballPlayerRoutes');
 
+// Importar la configuración de la base de datos
+const mongoose = require('./src/config/db');
+
 const app = express();
 const port = 3000;
 
