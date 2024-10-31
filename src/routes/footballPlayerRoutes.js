@@ -30,4 +30,24 @@ router.get('/api/footballplayers/:id', authController.verifyToken, FootballPlaye
 router.put('/api/footballplayers/update/:id', authController.verifyToken, FootballPlayerApiController.update);
 router.delete('/api/footballplayers/delete/:id', authController.verifyToken, FootballPlayerApiController.delete);
 
+// Rutas de administración de usuarios (solo accesibles por admin)
+router.get('/admin/users', authController.verifyToken, authController.verifyAdmin, (req, res) => {
+  // Lógica para listar usuarios
+});
+router.get('/admin/users/add', authController.verifyToken, authController.verifyAdmin, (req, res) => {
+  res.render('add-user', { error: null });
+});
+router.post('/admin/users/add', authController.verifyToken, authController.verifyAdmin, (req, res) => {
+  // Lógica para agregar un nuevo usuario
+});
+router.get('/admin/users/edit/:id', authController.verifyToken, authController.verifyAdmin, (req, res) => {
+  // Lógica para obtener los datos del usuario y renderizar la vista de edición
+});
+router.put('/admin/users/update/:id', authController.verifyToken, authController.verifyAdmin, (req, res) => {
+  // Lógica para actualizar los datos del usuario
+});
+router.delete('/admin/users/delete/:id', authController.verifyToken, authController.verifyAdmin, (req, res) => {
+  // Lógica para eliminar un usuario
+});
+
 module.exports = router;
