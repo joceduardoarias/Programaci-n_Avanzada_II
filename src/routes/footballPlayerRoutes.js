@@ -17,6 +17,7 @@ router.post('/login', authController.login);
 router.post('/logout', authController.logout);
 router.post('/api/login', authApiController.login);
 router.post('/api/logout', authApiController.logout);
+router.post('/api/register', authApiController.register);
 
 // Definir las rutas para CRUD de FootballPlayers View
 router.get('/', authController.verifyToken, FootballPlayerController.getAll);
