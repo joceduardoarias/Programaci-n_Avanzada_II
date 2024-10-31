@@ -3,13 +3,14 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const footballPlayerRoutes = require('./src/routes/footballPlayerRoutes');
 
 // Importar la configuración de la base de datos
 const mongoose = require('./src/config/db');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Body-parser para analizar formularios (necesario para acceder al campo _method)
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,6 +20,13 @@ app.use(bodyParser.json());
 app.use(methodOverride('_method'));
 // Middleware para el manejo de cookies
 app.use(cookieParser());
+// Configuración de express-session
+app.use(session({
+  secret: 'secretKey',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // Cambiar a true si usas HTTPS
+}));
 // Middleware estático y configuración de vistas
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
