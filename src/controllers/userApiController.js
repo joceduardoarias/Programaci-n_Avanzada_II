@@ -1,7 +1,7 @@
 // controllers/userApiController.js
 const userService = require("../services/userService");
 
-const userController = {
+const userApiController = {
   listUsers: async (req, res) => {
     const users = await userService.getAllUsers();
     if (!users) return res.status(404).send("No hay usuarios.");
@@ -46,4 +46,4 @@ const userController = {
   },
 };
 
-module.exports = userController;
+module.exports = userApiController;
