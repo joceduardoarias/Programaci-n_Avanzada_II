@@ -3,7 +3,9 @@ const express = require('express');
 const FootballPlayerController = require('../controllers/footballPlayerController');
 const FootballPlayerApiController = require('../controllers/footballPlayerApiController');
 const authController = require('../controllers/authController');
+const authApiController = require('../controllers/authApiController');
 const userController = require('../controllers/userController');
+const userApiController = require('../controllers/userApiController');
 
 const router = express.Router();
 
@@ -13,6 +15,8 @@ router.post('/register', authController.register);
 router.get('/login', (req, res) => res.render('login', { error: null }));
 router.post('/login', authController.login);
 router.post('/logout', authController.logout);
+router.post('/api/login', authApiController.login);
+router.post('/api/logout', authApiController.logout);
 
 // Definir las rutas para CRUD de FootballPlayers View
 router.get('/', authController.verifyToken, FootballPlayerController.getAll);
@@ -38,5 +42,12 @@ router.post('/admin/users/add', authController.verifyToken, authController.verif
 router.get('/admin/users/edit/:id', authController.verifyToken, authController.verifyAdmin, userController.getEditUser);
 router.put('/admin/users/update/:id', authController.verifyToken, authController.verifyAdmin, userController.updateUser);
 router.delete('/admin/users/delete/:id', authController.verifyToken, authController.verifyAdmin, userController.deleteUser);
+
+router.get('api/admin/users', authApiController.verifyToken, authApiController.verifyAdmin, userApiController.listUsers);
+router.get('api/admin/users/add', authApiController.verifyToken, authApiController.verifyAdmin, userApiController.getAddUser);
+router.post('api/admin/users/add', authApiController.verifyToken, authApiController.verifyAdmin, userApiController.addUser);
+router.get('api/admin/users/edit/:id', authApiController.verifyToken, authApiController.verifyAdmin, userApiController.getEditUser);
+router.put('api/admin/users/update/:id', authApiController.verifyToken, authApiController.verifyAdmin, userApiController.updateUser);
+router.delete('api/admin/users/delete/:id', authApiController.verifyToken, authApiController.verifyAdmin, userApiController.deleteUser);
 
 module.exports = router;
