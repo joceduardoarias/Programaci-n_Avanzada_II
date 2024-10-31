@@ -1,5 +1,4 @@
 // controllers/authController.js
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/userModel');
 
@@ -24,8 +23,8 @@ const authController = {
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) return res.render('login', { error: 'Contraseña incorrecta.' });
 
-      const token = jwt.sign({ id: user._id }, 'secretKey', { expiresIn: '1h' });
-      res.cookie('token', token, { httpOnly: true });
+      req.session.userId = user._id;
+      req.session.role = user.role;
       res.redirect('/footballplayers');
     } catch (err) {
       res.render('login', { error: err.message });
@@ -33,21 +32,27 @@ const authController = {
   },
 
   logout: (req, res) => {
-    res.clearCookie('token');
-    res.redirect('/login');
+    req.session.destroy(err => {
+      if (err) {
+        return res.redirect('/footballplayers');
+      }
+      res.clearCookie('connect.sid');
+      res.redirect('/login');
+    });
   },
 
   verifyToken: (req, res, next) => {
-    const token = req.cookies.token;
-    if (!token) return res.redirect('/login');
-
-    try {
-      const verified = jwt.verify(token, 'secretKey');
-      req.user = verified;
-      next();
-    } catch (err) {
-      res.redirect('/login');
+    if (!req.session.userId) {
+      return res.redirect('/login');
     }
+    next();
+  },
+
+  verifyAdmin: (req, res, next) => {
+    if (req.session.role !== 'admin') {
+      return res.status(403).send('Acceso denegado.');
+    }
+    next();
   }
 };
 
