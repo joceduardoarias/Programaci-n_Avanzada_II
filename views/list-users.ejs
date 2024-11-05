@@ -10,6 +10,17 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <button class="btn btn-outline-secondary" onclick="history.back()">Atrás</button>
+      <form class="d-flex ms-auto" action="/logout" method="POST">
+        <button class="btn btn-outline-danger" type="submit">Salir</button>
+      </form>
+    </div>
+  </nav>
+
   <div class="container mt-5">
     <h1 class="text-center mb-4">Lista de Usuarios</h1>
     <div class="text-center mb-4">
