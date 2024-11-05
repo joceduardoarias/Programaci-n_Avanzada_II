@@ -14,7 +14,7 @@ const FootballPlayerController = {
   getAll: async (req, res) => {
     try {
       const players = await FootballPlayerService.getAllPlayers();
-      res.render("get-players", { players });
+      res.render("get-players", { players, role: req.session.role });
     } catch (err) {
       res.status(500).send(err.message);
     }
@@ -36,7 +36,7 @@ const FootballPlayerController = {
     try {
       await FootballPlayerService.updatePlayer(id, req.body);
       const players = await FootballPlayerService.getAllPlayers();
-      res.render("get-players", { players });
+      res.render("get-players", { players, role: req.session.role });
     } catch (err) {
       res.status(400).send(err.message);
     }
@@ -47,7 +47,7 @@ const FootballPlayerController = {
     try {
       await FootballPlayerService.deletePlayer(id);
       const players = await FootballPlayerService.getAllPlayers();
-      res.render("get-players", { players });
+      res.render("get-players", { players, role: req.session.role });
     } catch (err) {
       res.status(500).send(err.message);
     }
