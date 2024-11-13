@@ -20,35 +20,35 @@ router.post('/api/logout', authApiController.logout);
 router.post('/api/register', authApiController.register);
 
 // Definir las rutas para CRUD de FootballPlayers View
-router.get('/', authController.verifyToken, FootballPlayerController.getAll);
-router.get('/footballplayers', authController.verifyToken, FootballPlayerController.getAll);
-router.get('/footballplayers/add', authController.verifyToken, FootballPlayerController.getAddPlayer);
-router.post('/footballplayers/add', authController.verifyToken, FootballPlayerController.addPlayer);
-router.get('/footballplayers/:id', authController.verifyToken, FootballPlayerController.getById);
-router.put('/footballplayers/update/:id', authController.verifyToken, FootballPlayerController.update);
-router.delete('/footballplayers/delete/:id', authController.verifyToken, FootballPlayerController.delete);
-router.get('/footballplayers/edit/:id', authController.verifyToken, FootballPlayerController.getEditPlayer);
+router.get('/', authController.validateSession, FootballPlayerController.getAll);
+router.get('/footballplayers', authController.validateSession, FootballPlayerController.getAll);
+router.get('/footballplayers/add', authController.validateSession, FootballPlayerController.getAddPlayer);
+router.post('/footballplayers/add', authController.validateSession, FootballPlayerController.addPlayer);
+router.get('/footballplayers/:id', authController.validateSession, FootballPlayerController.getById);
+router.put('/footballplayers/update/:id', authController.validateSession, FootballPlayerController.update);
+router.delete('/footballplayers/delete/:id', authController.validateSession, FootballPlayerController.delete);
+router.get('/footballplayers/edit/:id', authController.validateSession, FootballPlayerController.getEditPlayer);
 
 // Definir las rutas para CRUD de FootballPlayers API
-router.post('/api/footballplayers', authController.verifyToken, FootballPlayerApiController.create);
-router.get('/api/footballplayers', authController.verifyToken, FootballPlayerApiController.getAll);
-router.get('/api/footballplayers/:id', authController.verifyToken, FootballPlayerApiController.getById);
-router.put('/api/footballplayers/update/:id', authController.verifyToken, FootballPlayerApiController.update);
-router.delete('/api/footballplayers/delete/:id', authController.verifyToken, FootballPlayerApiController.delete);
+router.post('/api/footballplayers', authController.validateSession, FootballPlayerApiController.create);
+router.get('/api/footballplayers', authController.validateSession, FootballPlayerApiController.getAll);
+router.get('/api/footballplayers/:id', authController.validateSession, FootballPlayerApiController.getById);
+router.put('/api/footballplayers/update/:id', authController.validateSession, FootballPlayerApiController.update);
+router.delete('/api/footballplayers/delete/:id', authController.validateSession, FootballPlayerApiController.delete);
 
 // Rutas de administración de usuarios (solo accesibles por admin)
-router.get('/admin/users', authController.verifyToken, authController.verifyAdmin, userController.listUsers);
-router.get('/admin/users/add', authController.verifyToken, authController.verifyAdmin, userController.getAddUser);
-router.post('/admin/users/add', authController.verifyToken, authController.verifyAdmin, userController.addUser);
-router.get('/admin/users/edit/:id', authController.verifyToken, authController.verifyAdmin, userController.getEditUser);
-router.put('/admin/users/update/:id', authController.verifyToken, authController.verifyAdmin, userController.updateUser);
-router.delete('/admin/users/delete/:id', authController.verifyToken, authController.verifyAdmin, userController.deleteUser);
+router.get('/admin/users', authController.validateSession, authController.verifyAdmin, userController.listUsers);
+router.get('/admin/users/add', authController.validateSession, authController.verifyAdmin, userController.getAddUser);
+router.post('/admin/users/add', authController.validateSession, authController.verifyAdmin, userController.addUser);
+router.get('/admin/users/edit/:id', authController.validateSession, authController.verifyAdmin, userController.getEditUser);
+router.put('/admin/users/update/:id', authController.validateSession, authController.verifyAdmin, userController.updateUser);
+router.delete('/admin/users/delete/:id', authController.validateSession, authController.verifyAdmin, userController.deleteUser);
 
-router.get('api/admin/users', authApiController.verifyToken, authApiController.verifyAdmin, userApiController.listUsers);
-router.get('api/admin/users/add', authApiController.verifyToken, authApiController.verifyAdmin, userApiController.getAddUser);
-router.post('api/admin/users/add', authApiController.verifyToken, authApiController.verifyAdmin, userApiController.addUser);
-router.get('api/admin/users/edit/:id', authApiController.verifyToken, authApiController.verifyAdmin, userApiController.getEditUser);
-router.put('api/admin/users/update/:id', authApiController.verifyToken, authApiController.verifyAdmin, userApiController.updateUser);
-router.delete('api/admin/users/delete/:id', authApiController.verifyToken, authApiController.verifyAdmin, userApiController.deleteUser);
+// router.get('api/admin/users', authApiController.validateSession, authApiController.verifyAdmin, userApiController.listUsers);
+// router.get('api/admin/users/add', authApiController.validateSession, authApiController.verifyAdmin, userApiController.getAddUser);
+// router.post('api/admin/users/add', authApiController.validateSession, authApiController.verifyAdmin, userApiController.addUser);
+// router.get('api/admin/users/edit/:id', authApiController.validateSession, authApiController.verifyAdmin, userApiController.getEditUser);
+// router.put('api/admin/users/update/:id', authApiController.validateSession, authApiController.verifyAdmin, userApiController.updateUser);
+// router.delete('api/admin/users/delete/:id', authApiController.validateSession, authApiController.verifyAdmin, userApiController.deleteUser);
 
 module.exports = router;
