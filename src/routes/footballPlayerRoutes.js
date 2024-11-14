@@ -1,8 +1,9 @@
-// routes/footballPlayerRoutes.js
+// routes/footballApiPlayerRoutes.js
 const express = require('express');
 const FootballPlayerController = require('../controllers/footballPlayerController');
 const FootballPlayerApiController = require('../controllers/footballPlayerApiController');
 const authController = require('../controllers/authController');
+const authApiController = require('../controllers/authApiController');
 
 const router = express.Router();
 
@@ -24,6 +25,9 @@ router.delete('/footballplayers/delete/:id', authController.verifyToken, Footbal
 router.get('/footballplayers/edit/:id', authController.verifyToken, FootballPlayerController.getEditPlayer);
 
 // Definir las rutas para CRUD de FootballPlayers API
+router.post('/api/login', authApiController.login);
+router.post('/api/logout', authApiController.logout);
+router.post('/api/register', authApiController.register);
 router.post('/api/footballplayers', authController.verifyToken, FootballPlayerApiController.create);
 router.get('/api/footballplayers', authController.verifyToken, FootballPlayerApiController.getAll);
 router.get('/api/footballplayers/:id', authController.verifyToken, FootballPlayerApiController.getById);
