@@ -4,9 +4,9 @@ const FootballPlayerApiController = {
   create: async (req, res) => {
     try {
       await FootballPlayerService.createPlayer(req.body);
-      res.status(201).send('Football Player creado exitosamente.');
+      res.json({ message: 'Football Player creado exitosamente.' });            
     } catch (err) {
-      res.status(400).send(err.message);
+      res.status(400).json({ error: err.message });
     }
   },
 
