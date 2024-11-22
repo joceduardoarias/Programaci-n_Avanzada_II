@@ -44,9 +44,9 @@ const FootballPlayerApiController = {
     const id = req.params.id;
     try {
       await FootballPlayerService.deletePlayer(id);
-      res.send('Football Player eliminado exitosamente.');
+      res.json({ message: 'Football Player eliminado exitosamente.' });      
     } catch (err) {
-      res.status(500).send(err.message);
+      res.status(500).json({ error: err.message });      
     }
   }
 };
