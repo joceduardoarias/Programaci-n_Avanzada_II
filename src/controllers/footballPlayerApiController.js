@@ -34,9 +34,9 @@ const FootballPlayerApiController = {
     const id = req.params.id;
     try {
       await FootballPlayerService.updatePlayer(id, req.body);
-      res.send('Football Player actualizado exitosamente.');
+      res.json({ message: 'Football Player actualizado exitosamente.' });
     } catch (err) {
-      res.status(400).send(err.message);
+      res.status(400).json({ error: err.message });
     }
   },
 
