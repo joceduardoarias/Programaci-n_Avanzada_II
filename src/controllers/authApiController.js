@@ -38,6 +38,7 @@ const authApiController = {
 
   verifyToken: (req, res, next) => {
     const token = req.header('Authorization').replace('Bearer ', '');
+    console.log(token);
     if (!token) return res.status(401).send('Acceso denegado.');
 
     try {

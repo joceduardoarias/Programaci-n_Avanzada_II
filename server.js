@@ -4,12 +4,20 @@ const methodOverride = require('method-override');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const footballPlayerRoutes = require('./src/routes/footballPlayerRoutes');
+const cors = require('cors');
 
 // Importar la configuración de la base de datos
 const mongoose = require('./src/config/db');
 
 const app = express();
 const port = 3000;
+
+// Configurar CORS para permitir solicitudes desde el frontend
+app.use(cors({
+  origin: 'http://localhost:5173', // Cambia esto a la URL de tu frontend
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+}));
 
 // Body-parser para analizar formularios (necesario para acceder al campo _method)
 app.use(bodyParser.urlencoded({ extended: true }));

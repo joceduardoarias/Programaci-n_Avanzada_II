@@ -28,10 +28,10 @@ router.get('/footballplayers/edit/:id', authController.verifyToken, FootballPlay
 router.post('/api/login', authApiController.login);
 router.post('/api/logout', authApiController.logout);
 router.post('/api/register', authApiController.register);
-router.post('/api/footballplayers', authController.verifyToken, FootballPlayerApiController.create);
-router.get('/api/footballplayers', authController.verifyToken, FootballPlayerApiController.getAll);
-router.get('/api/footballplayers/:id', authController.verifyToken, FootballPlayerApiController.getById);
-router.put('/api/footballplayers/update/:id', authController.verifyToken, FootballPlayerApiController.update);
-router.delete('/api/footballplayers/delete/:id', authController.verifyToken, FootballPlayerApiController.delete);
+router.post('/api/footballplayers', authApiController.verifyToken, FootballPlayerApiController.create);
+router.get('/api/footballplayers', authApiController.verifyToken, FootballPlayerApiController.getAll);
+router.get('/api/footballplayers/:id', authApiController.verifyToken, FootballPlayerApiController.getById);
+router.put('/api/footballplayers/update/:id', authApiController.verifyToken, FootballPlayerApiController.update);
+router.delete('/api/footballplayers/delete/:id', authApiController.verifyToken, FootballPlayerApiController.delete);
 
 module.exports = router;
